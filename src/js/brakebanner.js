@@ -27,14 +27,14 @@ class BrakeBanner{
 			actionButton.x = actionButton.y = 400
 			const bikeContainer = new PIXI.Container()
 
-			bikeContainer.scale.x = bikeContainer.scale.y = 0.2
+			bikeContainer.scale.x = bikeContainer.scale.y = 0.3
 
             const brakeBikeImage = new PIXI.Sprite(this.loader.resources['brake_bike.png'].texture)
 			const brakeLevelImage = new PIXI.Sprite(this.loader.resources['brake_lever.png'].texture)
             const brakeHanderbarImage = new PIXI.Sprite(this.loader.resources['brake_handlerbar.png'].texture)
 			bikeContainer.addChild(brakeBikeImage,brakeLevelImage, brakeHanderbarImage)
-			this.stage.addChild(bikeContainer, actionButton)
 
+			brakeBikeImage.alpha = 0.5
 			// 设置把手旋转中心，固定把手位置
             brakeLevelImage.pivot.x = brakeLevelImage.pivot.y = 455
 			brakeLevelImage.x = 722
@@ -46,11 +46,15 @@ class BrakeBanner{
 
 			actionButton.on('mousedown', () => {
 				gsap.to(brakeLevelImage, {duration:.3, rotation: Math.PI/180*-30})
+				gsap.to(brakeBikeImage, {duration: .3, alpha: 1})
+				bikeContainer.y += 20
 			    parse()
 			})
 
 			actionButton.on('mouseup', () => {
 				gsap.to(brakeLevelImage, {duration:.3, rotation: 0})
+				gsap.to(brakeBikeImage, {duration: .3, alpha: 0.5})
+				bikeContainer.y -= 20
 			    start()
 			})
             
@@ -65,7 +69,7 @@ class BrakeBanner{
            
             // 创建粒子
 			const particleContainer = new PIXI.Container()
-			this.stage.addChild(particleContainer)
+			this.stage.addChild(particleContainer, bikeContainer, actionButton)
 
 			particleContainer.pivot.x = window.innerWidth / 2
 			particleContainer.pivot.y = window.innerHeight / 2
@@ -116,7 +120,7 @@ class BrakeBanner{
 			}
 
 			const start = () => {
-				speed = 0
+				// speed = 0
 				gsap.ticker.add(loop)
 			}
 			const parse = () => {
