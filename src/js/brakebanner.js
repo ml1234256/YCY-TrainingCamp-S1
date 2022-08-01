@@ -43,18 +43,21 @@ class BrakeBanner{
 			// 设置把手动画
 			actionButton.interactive = true
 			actionButton.buttonMode = true
-
+            
+			const duration = .3
 			actionButton.on('mousedown', () => {
-				gsap.to(brakeLevelImage, {duration:.3, rotation: Math.PI/180*-30})
-				gsap.to(brakeBikeImage, {duration: .3, alpha: 1})
-				bikeContainer.y += 20
+				gsap.to(brakeLevelImage, {duration:duration, rotation: Math.PI/180*-30})
+				gsap.to(brakeBikeImage, {duration: duration, alpha: 1})
+				gsap.to(bikeContainer, {duration: duration, y: bikeContainer.y + 20})
+				//bikeContainer.y += 20
 			    parse()
 			})
 
 			actionButton.on('mouseup', () => {
-				gsap.to(brakeLevelImage, {duration:.3, rotation: 0})
-				gsap.to(brakeBikeImage, {duration: .3, alpha: 0.5})
-				bikeContainer.y -= 20
+				gsap.to(brakeLevelImage, {duration: duration, rotation: 0})
+				gsap.to(brakeBikeImage, {duration: duration, alpha: 0.5})
+				gsap.to(bikeContainer, {duration: duration, y: bikeContainer.y - 20})
+				//bikeContainer.y -= 20
 			    start()
 			})
             
