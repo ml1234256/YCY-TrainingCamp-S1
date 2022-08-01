@@ -44,7 +44,7 @@ class BrakeBanner{
 			actionButton.interactive = true
 			actionButton.buttonMode = true
             
-			const duration = .3
+			const duration = .4
 			actionButton.on('mousedown', () => {
 				gsap.to(brakeLevelImage, {duration:duration, rotation: Math.PI/180*-30})
 				gsap.to(brakeBikeImage, {duration: duration, alpha: 1})
@@ -144,12 +144,14 @@ class BrakeBanner{
 			const actionButton = new PIXI.Container()
 			 
             const btn = new PIXI.Sprite(this.loader.resources['btn.png'].texture)
-            const btnCircle = new PIXI.Sprite(this.loader.resources['btn_circle.png'].texture) 		    
+            const btnCircle = new PIXI.Sprite(this.loader.resources['btn_circle.png'].texture) 		
+			const btnCircle1 = new PIXI.Sprite(this.loader.resources['btn_circle.png'].texture) 		        
 			
-			actionButton.addChild(btn, btnCircle)
+			actionButton.addChild(btn, btnCircle, btnCircle1)
 
 			btn.pivot.x = btn.pivot.y = btn.width / 2
 			btnCircle.pivot.x = btnCircle.pivot.y = btnCircle.width / 2
+			btnCircle1.pivot.x = btnCircle1.pivot.y = btnCircle1.width / 2
 			
 			btnCircle.scale.x = btnCircle.scale.y = 0.8
 			gsap.to(btnCircle.scale, { duration: 1, x: 1.3, y: 1.3, repeat: -1 })
